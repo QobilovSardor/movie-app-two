@@ -7,6 +7,12 @@ import SearchPanel from '../search-panel/SearchPanel';
 import './app.css'
 
 const App = () => {
+  const data = [
+    { name: 'Empire of Osman', viewers: 726, id: 1, favourite: false },
+    { name: 'Ertugrul', viewers: 856, id: 2, favourite: false },
+    { name: 'Osman', viewers: 999, id: 3, favourite: false },
+  ]
+
   return (
     <div className='app font-monospace'>
       <div className="content">
@@ -15,7 +21,7 @@ const App = () => {
           <SearchPanel />
           <AppFilter />
         </div>
-        <MovieList />
+        <MovieList data={data} />
         <MoviesAddForm />
       </div>
     </div>

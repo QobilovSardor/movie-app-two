@@ -2,11 +2,13 @@ import React from 'react';
 import MovieListItem from '../movie-list-item/MovieListItem';
 import './movie-list.css'
 
-const MovieList = () => {
+const MovieList = ({data}) => {
   return (
-    <div className='movie-list'>
-      <MovieListItem />
-    </div>
+    <ul className='movie-list'>
+      {data.map(item => (
+        <MovieListItem key={item.id} {...item}/>
+      ))}
+    </ul>
   );
 };
 
