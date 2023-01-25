@@ -1,6 +1,5 @@
 import React from 'react';
 import './movies-add-form.css'
-import { v4 as uuidv4 } from 'uuid';  
 
 class MoviesAddForm extends React.Component {
   constructor(props) {
@@ -17,11 +16,15 @@ class MoviesAddForm extends React.Component {
 
   addFormHendler = (e) => {
     e.preventDefault();
-    this.props.addForm({name: this.state.name, viewers: this.state.viewers, id: uuidv4()});
-    this.setState(({
-      name: '',
-      viewers: '',
-    }))
+    if (this.state.name.length > 0 && this.state.name.trim() && this.state.viewers.length > 0 && this.state.viewers.trim()) {
+      this.props.addForm({ name: this.state.name, viewers: this.state.viewers });
+      this.setState(({
+        name: '',
+        viewers: '',
+      }))
+    } else {
+      alert("Ma'lumot kiritmadingiz!");
+    }
   }
 
   render() {
