@@ -13,17 +13,20 @@ class App extends React.Component {
       data: [
         { name: 'Empire of Osman', viewers: 726, id: 1, favourite: false },
         { name: 'Ertugrul', viewers: 856, id: 2, favourite: false },
-        { name: 'Osman', viewers: 999, id: 3, favourite: false },
-      ]
+        { name: 'Omar', viewers: 999, id: 3, favourite: false },
+      ],
     }
   }
 
   onDeleted = (id) => {
-    const index = this.data.findIndex(item => item.id !== id);
-    console.log(index);
-    // this.setState({
+    this.setState(({data}) => ({data: data.filter(c => c.id !== id)}))
+  }
 
-    // })
+  addForm = (item) => {
+    console.log(item);
+    this.setState(({data}) => ({
+      data: [...data, { ...item}]
+    }))
   }
 
   render() {
@@ -36,7 +39,7 @@ class App extends React.Component {
             <AppFilter />
           </div>
           <MovieList data={this.state.data} onDeleted={this.onDeleted} />
-          <MoviesAddForm />
+          <MoviesAddForm addForm={this.addForm} />
         </div>
       </div>
     );

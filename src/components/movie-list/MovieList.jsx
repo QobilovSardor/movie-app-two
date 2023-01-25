@@ -6,7 +6,7 @@ const MovieList = ({data, onDeleted}) => {
   return (
     <ul className='movie-list'>
       {data.map(item => (
-        <MovieListItem key={item.id} {...item} onDeleted={onDeleted}/>
+        <MovieListItem key={item.id} {...item} onDeleted={() => onDeleted(item.id)}/>
       ))}
     </ul>
   );
