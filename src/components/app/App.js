@@ -16,7 +16,8 @@ class App extends React.Component {
         { name: 'Ertugrul', viewers: 856, id: 2, favourite: false, like: false },
         { name: 'Omar', viewers: 999, id: 3, favourite: false, like: false },
       ],
-      term: ''
+      term: '',
+      filter: 'all'
     }
   }
 
@@ -52,18 +53,31 @@ class App extends React.Component {
 
   updateTermHendler = term => this.setState({term})
 
+  filterHendler = (arr, filter) => {
+    switch (filter) {
+      case 'popular':
+        return arr.filter(item => item.like)
+      case 'mostViewers':
+        return arr.filter(item => item.viewers > 800)
+      default:
+        return arr
+    }
+  }
+
+  updateFilterHandler = (filter) => this.setState({filter})
+
   render() {
-    const {data, term} = this.state;
+    const {data, term, filter} = this.state;
     const allMoviesConunt = data.length;
     const favouriteMoviesCount = data.filter(favourite => favourite.favourite).length;
-    const visibleteData = this.searchHendler(data, term);
+    const visibleteData = this.filterHendler(this.searchHendler(data, term), filter);
     return (
       <div className='app font-monospace'>
         <div className="content">
           <AppInfo allMoviesConunt={allMoviesConunt} favouriteMoviesCount={favouriteMoviesCount}/>
           <div className='search-panel'>
             <SearchPanel updateTermHendler={this.updateTermHendler} />
-            <AppFilter />
+            <AppFilter filter={filter} updateFilterHendler={this.updateFilterHandler} />
           </div>
           <MovieList 
             onToggleProp={this.onToggleProp}
